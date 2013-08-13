@@ -32,41 +32,39 @@ end
 function hxm.createRectGrid(width, height, obj)
 	obj = obj or {__val=true}
 	local grid = {}
-	for i=1, height do
-		grid[i] = {}
-		for j=1, math.ceil(width + height/2 - 1) do
-			if math.ceil(j + i/2 - 1) < math.ceil(width + height/2 - 1) then
-				grid[i][j] = nil
-			else
-				grid[i][j] = obj
-			end
+	for y=1, height do
+		grid[y] = {}
+		for x=1, math.ceil((width-1) + (height-1)/2) do
+
 		end
 	end
 
 	return grid
 end
 
--- Generates coordinates of a hexagon based on q or r
-function hxm.getCoordinates(rad, q, r, ox, oy)
-
-end
-
--- Creates hexagonal shaped grid with origin at center
---[[
-function hxm.createHexGrid(radius)
+-- Creates rhombus shaped grid with origin at top left corner
+function hxm.createRhombusGrid(width, height, obj)
 	obj = obj or {__val=true}
 	local grid = {}
-	for i=-radius, 2*radius do
-		grid[i] = {}
-		for j=-radius, 2*radius do
-			if j+radius <  then
-				grid[i][j] = nil
-			else
-				grid[i][j] = obj
-			end
+	for y=1, height do
+		grid[y] = {}
+		for x=1, width do
+			grid[y][x] = obj
 		end
 	end
+
+	return grid
 end
-]]
+
+-- Generates coordinates of a hexagon based on axial coordinates x and y
+function hxm.getCoordinates(rad, x, y, ox, oy)
+	local height = 2*rad
+	local width = (math.sqrt(3)/2)*height
+
+	local rx = x*width + 0.5*y*width + ox
+	local ry = 0.75*y*height + oy
+
+	return {x=rx, y=ry}
+end
 
 return hxm
