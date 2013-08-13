@@ -32,14 +32,20 @@ end
 function hxm.createRectGrid(width, height, obj)
 	obj = obj or {__val=true}
 	local grid = {}
+	local w = math.ceil((width-1) + (height-1)/2)
 	for y=1, height do
 		grid[y] = {}
-		for x=1, math.ceil((width-1) + (height-1)/2) do
-
+		for x=-(w-width), width do
+			if x >= -math.floor(y/2) and
+			   x <= width - math.floor(y/2) then
+				grid[y][x] = obj
+			else
+				grid[y][x] = nil
+			end
 		end
 	end
 
-	return grid
+	return {grid=grid, width=width, height=height}
 end
 
 -- Creates rhombus shaped grid with origin at top left corner
@@ -65,6 +71,30 @@ function hxm.getCoordinates(rad, x, y, ox, oy)
 	local ry = 0.75*y*height + oy
 
 	return {x=rx, y=ry}
+end
+
+-- Draws rectangular grid using a drawing function (must take arguments radius, vertices, grid object and other optional arguments)
+function hxm.drawRectGrid(grid, drawFunction, radius, ox, oy, args)
+	for y=1, grid.height do
+		for x=-((math.ceil((grid.width-1)+(grid.height-1)/2))-grid.width), grid.width do
+			if grid.grid[y][x] ~= nil then
+				local hexCoords = HXM.getCoordinates(radius, x-1, y-1, ox, oy)
+				local vertices = HXM.getHexVertices(radius, hexCoords.x, hexCoords.y)
+				drawFunction(vertices, grid.grid[y][x], args)
+			end
+		end
+	end
+end
+
+-- Draws rhombus grid using a drawing function (must take arguments radius, vertices, grid object and other optional arguments)
+function hxm.drawRhombusGrid(grid, drawFunction, radius, ox, oy, args)
+	for y=1, grid.height do
+		for x=1, grid.width do
+			local hexCoords = HXM.getCoordinates(radius, x-1, y-1, ox, oy)
+			local vertices = HXM.getHexVertices(radius, hexCoords.x, hexCoords.y)
+			drawFunction(vertices, grid.grid[y][x], args)
+		end
+	end
 end
 
 return hxm
