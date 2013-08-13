@@ -1,4 +1,4 @@
-HexaMoon v0.1
+HexaMoon v0.2
 =============
 
 Hexagonal Grid Library for Lua
