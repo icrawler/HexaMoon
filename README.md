@@ -12,6 +12,10 @@ What is axial coordinates
 
 In axial coordinates, there are two axes x and y. In my implementation of hex grids, hex coordinate x is aligned with the horizontal coordinate, and hex coordinate y is angled 30 degrees from the vertical coordinate.
 
+Demo
+----
+See the demo folder.
+
 Functions
 ---------
 
