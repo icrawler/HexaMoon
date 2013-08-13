@@ -5,7 +5,7 @@ HXM = require "HexaMoon"
 function love.load()
 	width = 12
 	height = 12
-	hexGrid = HXM.createRectGrid(width, height, {color={255, 255, 255}})
+	hexGrid = HXM.createRhombusGrid(width, height, {color={255, 255, 255}})
 end
 
 function love.update()
@@ -15,7 +15,7 @@ end
 function love.draw()
 	love.graphics.setColor(255, 255, 255)
 	love.graphics.setLine(2)
-	HXM.drawRectGrid(hexGrid, drawHexagon, 10, 50, 50, {mode="line"})
+	HXM.drawRhombusGrid(hexGrid, drawHexagon, 10, 50, 50, {mode="line"})
 end
 
 function drawHexagon(vertices, obj, args)

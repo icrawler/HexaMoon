@@ -59,7 +59,7 @@ function hxm.createRhombusGrid(width, height, obj)
 		end
 	end
 
-	return grid
+	return {grid=grid, width=width, height=height}
 end
 
 -- Generates coordinates of a hexagon based on axial coordinates x and y
