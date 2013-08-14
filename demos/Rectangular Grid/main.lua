@@ -3,8 +3,8 @@
 HXM = require "HexaMoon"
 
 function love.load()
-	width = 12
-	height = 12
+	width = 6
+	height = 6
 	hexGrid = HXM.createRectGrid(width, height, {color={255, 255, 255}})
 end
 

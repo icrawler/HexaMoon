@@ -36,7 +36,7 @@ function hxm.createRectGrid(width, height, obj)
 	for y=1, height do
 		grid[y] = {}
 		for x=-(w-width), width do
-			if x >= -math.floor(y/2) and
+			if x > -math.floor(y/2) and
 			   x <= width - math.floor(y/2) then
 				grid[y][x] = obj
 			else
