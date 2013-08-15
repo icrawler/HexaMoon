@@ -15,6 +15,13 @@
 
 
 local hxm = {}
+hxm.neighbors = {}  --  x,  y
+hxm.neighbors["NE"] = { 1, -1}
+hxm.neighbors["E"]  = { 1,  0}
+hxm.neighbors["SE"] = { 0,  1}
+hxm.neighbors["SW"] = {-1,  1}
+hxm.neighbors["W"]  = {-1,  0}
+hxm.neighbors["NW"] = { 0, -1}
 
 -- Gets the Hexagon vertices for radius (distance from center to corner) and x/y coordinates of the center
 function hxm.getHexVertices(rad, cx, cy)
@@ -26,6 +33,48 @@ function hxm.getHexVertices(rad, cx, cy)
 		table.insert(vertices, {x=x_i, y=y_i})
 	end
 	return vertices
+end
+
+-- Gets hexagon coordinate in a direction
+function hxm.getHexCoordinate(dir, x, y)
+	return x + hxm.neighbors[dir][1], y + hxm.neighbors[dir][2]
+end
+
+-- Gets hexagon coordinate from a pixel coordinate
+function hxm.getHexFromPixel(px, py, radius, ox, oy)
+	local x = (1/3*sqrt(3) * (px-ox) - 1/3 * (py-oy))/radius
+	local y = 2/3 * (py-oy) / size
+
+	local nx, ny = hxm.getNearestHex(x, y)
+	return nx, ny
+end
+
+-- Round to the nearest hex
+function hxm.getNearestHex(x, y)
+	local cx = x
+	local cy = -x-y
+	local cz = y
+
+	local rx = math.floor(cx+0.5)
+	local ry = math.floor(cy+0.5)
+	local rz = math.floor(cz+0.5)
+
+	local x_err = math.abs(rx-cx)
+	local y_err = math.abs(ry-cy)
+	local z_err = math.abs(rz-cz)
+
+	if x_err > y_err and x_err > z_err then
+		rx = -ry-rz
+	elseif y_err > z_err then
+		ry = -rx-rz
+	else
+		rz = -rx-ry
+	end
+
+	local ax = rx
+	local ay = rz
+
+	return ax, ay
 end
 
 -- Creates rectangular shaped grid with origin at top left corner

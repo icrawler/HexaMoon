@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v0.4
+----
+* Added more helper functions
+
 v0.3
 ----
 * Fixed bug where rectangular grids get one extra cell for every column except the last
