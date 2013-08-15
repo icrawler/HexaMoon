@@ -3,7 +3,10 @@ Changelog
 
 v0.4
 ----
-* Added more helper functions
+* Added more helper functions:
+	* getHexCoordinate(dir, x, y)
+	* getHexFromPixel(px, py, radius, ox, oy)
+	* getNearestHex(x, y)
 
 v0.3
 ----
