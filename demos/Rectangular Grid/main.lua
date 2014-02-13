@@ -14,7 +14,7 @@ end
 
 function love.draw()
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.setLine(2)
+	love.graphics.setLineWidth(2)
 	HXM.drawRectGrid(hexGrid, drawHexagon, 10, 50, 50, {mode="line"})
 end
 
